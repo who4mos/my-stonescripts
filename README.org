@@ -1,0 +1,38 @@
+#+AUTHOR: who4mos
+#+PROPERTY: header-args :tangle ./scripts
+
+* Deadwood
+
+#+begin_src txt
+  ?loc = deadwood
+    var meleeSplash = "bardiche *4"
+    var ranged = "crossbow *6"
+    var shield = "shield *6"
+    var melee = "sword *6"
+
+    ?foe.GetCount(22) = 0
+      equipL triskelion stone
+      equipR ouroboros stone
+    :?foe =  boss
+      activate potion
+      equipL @ranged@
+      equipR @shield@
+    :?foe.GetCount(30) > 3
+      equip @meleeSplash@
+    :
+      ?foe = mosquito
+        equipL @ranged@
+        equipR triskelion stone
+      :?foe = flesh_scarab
+        equip @meleeSplash@
+  
+    ?harvest.distance < 10
+      equipR hatchet
+      equipL triskelion stone
+      ?item.GetCooldown("hatchet") <= 0
+        activate R
+
+    ?pickup.distance < 5
+      equipL triskelion stone
+      equipR star stone
+#+end_src
